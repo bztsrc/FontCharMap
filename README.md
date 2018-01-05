@@ -6,8 +6,7 @@ Usage
 -----
 
 Simple as
-- put the fontcharmap.php on your webserver
-- open it in a browser
+- open fontcharmap.html in a browser
 - enter the url of the web font
 - click on the desired icon
 - paste it into your html source

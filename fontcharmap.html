@@ -1,0 +1,62 @@
+<html>
+<script>
+var size=28;
+function loadfont() {
+    var stl = document.getElementsByTagName('style')[0];
+    console.log(stl);
+    stl.innerHTML="@font-face { font-family: myFont; src: url("+document.getElementById('font').value+") format('"+document.getElementById('type').value+"'); }";
+}
+function selectthis(element) {
+    var doc = document, range, selection;
+    if (doc.body.createTextRange) {
+        range = document.body.createTextRange();
+        range.moveToElementText(element);
+        range.select();
+    } else if (window.getSelection) {
+        selection = window.getSelection();
+        range = document.createRange();
+        range.selectNodeContents(element);
+        selection.removeAllRanges();
+        selection.addRange(range);
+    }
+   document.execCommand('copy');
+}
+function gentable(s)
+{
+    var txt="<table border='1' cellspacing='0' cellpadding='3'>",limit,x,y,i,l=document.location.href.match(/limit=([0-9]+)$/);
+    if(s!=undefined && s!=0) size+=s;
+    if(size<28) size=28;
+    if(l!=null && l[1]!=null) limit=l[1];
+    if(limit<128 || limit>4096) limit=1024;
+    for(y=0;y<limit;y++) {
+        txt+="<tr>";
+        for(x=0;x<8;x++) {
+            i=y*8+x;
+            txt+="<td style='font-family: myFont;font-size:"+size+"px; cursor:pointer;' width='1' onclick='selectthis(this);'>&#"+i+";</td>";
+            txt+="<td style='cursor:pointer;' width='1'><span onclick='selectthis(this);'>&amp;#"+i+";</span><br><span onclick='selectthis(this);'>&amp;#x"+i.toString(16)+";</span></td>";
+        }
+        txt+="</tr>\n";
+    }
+    txt+="</table>";
+    document.getElementById('tbl').innerHTML=txt;
+}
+</script>
+<style>
+</style>
+<body onload='gentable();'>
+<h1>Web Font Character Map</h1>
+<div style='padding:5px;'>
+	Webfont URL: <input type='text' id='font' onchange='loadfont();' size='80'>
+	Type: <select id='type'>
+		<option>woff</option>
+		<option>woff2</option>
+		<option>embedded-opentype</option>
+		<option>truetype</option>
+		<option>svg</option>
+	</select>
+	Size: <input type='button' value='+' onclick='gentable(2);' style='width:24px;'>&nbsp;<input type='button' value='-' onclick='gentable(-2);' style='width:24px;'>
+</div>
+<div id='tbl'>
+</div>
+</body>
+</html>
