@@ -26,7 +26,7 @@ function gentable(s)
     var txt="<table border='1' cellspacing='0' cellpadding='3'>",limit,x,y,i,l=document.location.href.match(/limit=([0-9]+)$/);
     if(s!=undefined && s!=0) size+=s;
     if(size<28) size=28;
-    if(l!=null && l[1]!=null) limit=l[1];
+    if(l!=null && l[1]!=null) limit=parseInt(l[1]); else limit=1024;
     if(limit<128 || limit>4096) limit=1024;
     for(y=0;y<limit;y++) {
         txt+="<tr>";

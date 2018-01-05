@@ -11,3 +11,4 @@ Simple as
 - click on the desired icon
 - paste it into your html source
 
+[Online Demo](https://bztsrc.github.io/FontCharMap/?limit=1024)
